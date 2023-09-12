@@ -385,6 +385,17 @@ namespace Brayns.BCT
             return (NavApp)lvApps.SelectedItems[0].Tag;
         }
 
+        private bool UnpublishApp(NavApp app)
+        {
+            AddLog(string.Format("Unpublish APP '{0}'... ", app.Name), false);
+            if (ExecutePowerShell("Unpublish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+            {
+                AddLog("done.");
+                return true;
+            }
+            return false;
+        }
+
         private void unpublishToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -395,11 +406,8 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Unpublish APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Unpublish APP '{0}'... ", app.Name), false);
-                if (ExecutePowerShell("Unpublish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+                if (UnpublishApp(app))
                 {
-                    AddLog("done.");
-
                     BC!.Load();
                     RefreshAppsUI();
                 }
@@ -408,6 +416,17 @@ namespace Brayns.BCT
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool CleanApp(NavApp app)
+        {
+            AddLog(string.Format("Clean APP '{0}'... ", app.Name), false);
+            if (ExecutePowerShell("Sync-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Mode Clean -Name \"" + app.Name + "\" -Version " + app.Version))
+            {
+                AddLog("done.");
+                return true;
+            }
+            return false;
         }
 
         private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -420,11 +439,8 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Clean APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Clean APP '{0}'... ", app.Name), false);
-                if (ExecutePowerShell("Sync-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Mode Clean -Name \"" + app.Name + "\" -Version " + app.Version))
+                if (CleanApp(app))
                 {
-                    AddLog("done.");
-
                     BC!.Load();
                     RefreshAppsUI();
                 }
@@ -508,6 +524,17 @@ namespace Brayns.BCT
             lvApps.Sort();
         }
 
+        private bool UninstallApp(NavApp app)
+        {
+            AddLog(string.Format("Uninstall APP '{0}'... ", app.Name), false);
+            if (ExecutePowerShell("Uninstall-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+            {
+                AddLog("done.");
+                return true;
+            }
+            return false;
+        }
+
         private void uninstallToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -518,11 +545,8 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Uninstall APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Uninstall APP '{0}'... ", app.Name), false);
-                if (ExecutePowerShell("Uninstall-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+                if (UninstallApp(app))
                 {
-                    AddLog("done.");
-
                     BC!.Load();
                     RefreshAppsUI();
                 }
@@ -531,6 +555,17 @@ namespace Brayns.BCT
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool InstallApp(NavApp app)
+        {
+            AddLog(string.Format("Install APP '{0}'... ", app.Name), false);
+            if (ExecutePowerShell("Install-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+            {
+                AddLog("done.");
+                return true;
+            }
+            return false;
         }
 
         private void installToolStripMenuItem_Click(object sender, EventArgs e)
@@ -543,11 +578,8 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Install APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Install APP '{0}'... ", app.Name), false);
-                if (ExecutePowerShell("Install-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version))
+                if (InstallApp(app))
                 {
-                    AddLog("done.");
-
                     BC!.Load();
                     RefreshAppsUI();
                 }
@@ -556,6 +588,18 @@ namespace Brayns.BCT
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool PublishApp(NavApp app)
+        {
+            AddLog(string.Format("Publish APP '{0}' from '{1}'... ", app.Name, app.FileName), false);
+            if (ExecutePowerShell("Publish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Path \"" + app.FileName + "\" -SkipVerification"))
+            {
+                AddLog("done.");
+
+                return true;
+            }
+            return false;
         }
 
         private void publishToolStripMenuItem_Click(object sender, EventArgs e)
@@ -569,11 +613,8 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Publish APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Publish APP '{0}' from '{1}'... ", app.Name, app.FileName), false);
-                if (ExecutePowerShell("Publish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Path \"" + app.FileName + "\" -SkipVerification"))
+                if (PublishApp(app))
                 {
-                    AddLog("done.");
-
                     BC!.Load();
                     RefreshAppsUI();
                 }
@@ -623,6 +664,17 @@ namespace Brayns.BCT
             }
         }
 
+        private bool DataUpgradeApp(NavApp app)
+        {
+            AddLog(string.Format("Data Upgrade APP '{0}'... ", app.Name), false);
+            if (ExecutePowerShell("Start-NAVAppDataUpgrade -ServerInstance " + ProfileData.InstanceName + " -Force -Name \"" + app.Name + "\" -Version " + app.Version))
+            {
+                AddLog("done.");
+                return true;
+            }
+            return false;
+        }
+
         private void dataUpgradeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -633,9 +685,46 @@ namespace Brayns.BCT
                 if (MessageBox.Show(string.Format("Data Upgrade APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                AddLog(string.Format("Data Upgrade APP '{0}'... ", app.Name), false);
-                if (ExecutePowerShell("Start-NAVAppDataUpgrade -ServerInstance " + ProfileData.InstanceName + " -Force -Name \"" + app.Name + "\" -Version " + app.Version))
-                    AddLog("done.");
+                DataUpgradeApp(app);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void upgradeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var app = GetSelectedApp();
+                if (app == null) return;
+                if (app.Status != NavAppStatus.Available) return;
+
+                if (MessageBox.Show(string.Format("Upgrade APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
+                foreach (NavApp a in BC!.Apps)
+                {
+                    if ((a.ID == app.ID) && (a.Status != NavAppStatus.Available))
+                    {
+                        if (a.Status == NavAppStatus.Installed)
+                        {
+                            UninstallApp(a);
+                            UnpublishApp(a);
+                        }
+                        if (a.Status == NavAppStatus.Published)
+                            UnpublishApp(a);
+                    }
+                }
+
+                PublishApp(app);
+                SyncApp(app, false);
+                DataUpgradeApp(app);
+                InstallApp(app);
+
+                BC!.Load();
+                RefreshAppsUI();
             }
             catch (Exception ex)
             {
