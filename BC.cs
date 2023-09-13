@@ -25,6 +25,7 @@ namespace Brayns.BCT
         public Version? Version { get; set; }
         public Guid ID { get; set; }
         public string FileName { get; set; } = "";
+        public bool SymbolsOnly { get; set; } = false;
     }
 
     public class BC
@@ -63,6 +64,14 @@ namespace Brayns.BCT
             return false;
         }
 
+        private bool TableExists(SqlConnection con, string tableName)
+        {
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM [sysobjects] WHERE [xtype] = 'U' AND [name] = @p0"; 
+            cmd.Parameters.Add(new SqlParameter("p0", tableName));
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+        }
+
         public void Load()
         {
             string dsn = "Data Source=" + Profile.DatabaseServer + ";Initial Catalog=" + Profile.DatabaseName + ";TrustServerCertificate = true;";
@@ -77,57 +86,66 @@ namespace Brayns.BCT
             Apps.Clear();
 
             // list of installed APPs
-            string sql = @"SELECT [App ID], [Name], [Publisher], [Version Major], [Version Minor], [Version Build], [Version Revision] 
+            if (TableExists(con, "NAV App Installed App"))
+            {
+                string sql = @"SELECT [App ID], [Name], [Publisher], [Version Major], [Version Minor], [Version Build], [Version Revision] 
                 FROM [NAV App Installed App]";
-            var sda = new SqlDataAdapter(sql, con);
-            var tab = new DataTable();
-            sda.Fill(tab);
-            foreach (DataRow rw in tab.Rows)
-            {
-                var a = new NavApp();
-                a.Name = rw["Name"].ToString()!;
-                a.Publisher = rw["Publisher"].ToString()!;
-                a.Version = new Version((int)rw["Version Major"], (int)rw["Version Minor"],
-                    (int)rw["Version Build"], (int)rw["Version Revision"]);
-                a.ID = Guid.Parse(rw["App ID"].ToString()!);
-                a.Status = NavAppStatus.Installed;
-                Apps.Add(a);
+                var sda = new SqlDataAdapter(sql, con);
+                var tab = new DataTable();
+                sda.Fill(tab);
+                foreach (DataRow rw in tab.Rows)
+                {
+                    var a = new NavApp();
+                    a.Name = rw["Name"].ToString()!;
+                    a.Publisher = rw["Publisher"].ToString()!;
+                    a.Version = new Version((int)rw["Version Major"], (int)rw["Version Minor"],
+                        (int)rw["Version Build"], (int)rw["Version Revision"]);
+                    a.ID = Guid.Parse(rw["App ID"].ToString()!);
+                    a.Status = NavAppStatus.Installed;
+                    Apps.Add(a);
+                }
             }
 
             // list of uninstalled APPs
-            sql = @"SELECT [ID], [Name], [Publisher], [Version Major], [Version Minor], [Version Build], [Version Revision] 
-                FROM [Published Application]";
-            sda = new SqlDataAdapter(sql, con);
-            tab = new DataTable();
-            sda.Fill(tab);
-            foreach (DataRow rw in tab.Rows)
+            if (TableExists(con, "Published Application"))
             {
-                var a = new NavApp();
-                a.Name = rw["Name"].ToString()!;
-                a.Publisher = rw["Publisher"].ToString()!;
-                a.Version = new Version((int)rw["Version Major"], (int)rw["Version Minor"],
-                    (int)rw["Version Build"], (int)rw["Version Revision"]);
-                a.ID = Guid.Parse(rw["ID"].ToString()!);
-                a.Status = NavAppStatus.Published;
-                if (!AppExists(a))
-                    Apps.Add(a);
+                string sql = @"SELECT [ID], [Name], [Publisher], [Version Major], [Version Minor], [Version Build], [Version Revision] 
+                    FROM [Published Application]";
+                var sda = new SqlDataAdapter(sql, con);
+                var tab = new DataTable();
+                sda.Fill(tab);
+                foreach (DataRow rw in tab.Rows)
+                {
+                    var a = new NavApp();
+                    a.Name = rw["Name"].ToString()!;
+                    a.Publisher = rw["Publisher"].ToString()!;
+                    a.Version = new Version((int)rw["Version Major"], (int)rw["Version Minor"],
+                        (int)rw["Version Build"], (int)rw["Version Revision"]);
+                    a.ID = Guid.Parse(rw["ID"].ToString()!);
+                    a.Status = NavAppStatus.Published;
+                    if (!AppExists(a))
+                        Apps.Add(a);
+                }
             }
 
             // list of uninstalled APPs
-            sql = "SELECT * FROM [$ndo$navappuninstalledapp]";
-            sda = new SqlDataAdapter(sql, con);
-            tab = new DataTable();
-            sda.Fill(tab);
-            foreach (DataRow rw in tab.Rows)
+            if (TableExists(con, "$ndo$navappuninstalledapp"))
             {
-                var a = new NavApp();
-                a.Name = rw["name"].ToString()!;
-                a.Publisher = rw["publisher"].ToString()!;
-                a.Version = Version.Parse(rw["version"].ToString()!);
-                a.ID = Guid.Parse(rw["appid"].ToString()!);
-                a.Status = NavAppStatus.Unpublished;
-                if (!AppExists(a))
-                    Apps.Add(a);
+                string sql = "SELECT * FROM [$ndo$navappuninstalledapp]";
+                var sda = new SqlDataAdapter(sql, con);
+                var tab = new DataTable();
+                sda.Fill(tab);
+                foreach (DataRow rw in tab.Rows)
+                {
+                    var a = new NavApp();
+                    a.Name = rw["name"].ToString()!;
+                    a.Publisher = rw["publisher"].ToString()!;
+                    a.Version = Version.Parse(rw["version"].ToString()!);
+                    a.ID = Guid.Parse(rw["appid"].ToString()!);
+                    a.Status = NavAppStatus.Unpublished;
+                    if (!AppExists(a))
+                        Apps.Add(a);
+                }
             }
 
             // list of available APPs

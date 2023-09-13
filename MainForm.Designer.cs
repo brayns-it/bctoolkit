@@ -44,6 +44,8 @@
             refreshToolStripMenuItem = new ToolStripMenuItem();
             clearLogToolStripMenuItem = new ToolStripMenuItem();
             miscToolStripMenuItem = new ToolStripMenuItem();
+            publishAPPToolStripMenuItem = new ToolStripMenuItem();
+            publishSymbolsToolStripMenuItem = new ToolStripMenuItem();
             uploadLicenseToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
             versionToolStripMenuItem = new ToolStripMenuItem();
@@ -98,54 +100,54 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(206, 24);
+            newToolStripMenuItem.Size = new Size(140, 24);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(206, 24);
+            openToolStripMenuItem.Size = new Size(140, 24);
             openToolStripMenuItem.Text = "Open";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(206, 24);
+            editToolStripMenuItem.Size = new Size(140, 24);
             editToolStripMenuItem.Text = "Edit";
             editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(206, 24);
+            saveToolStripMenuItem.Size = new Size(140, 24);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(206, 24);
+            saveAsToolStripMenuItem.Size = new Size(140, 24);
             saveAsToolStripMenuItem.Text = "Save as...";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(206, 24);
+            closeToolStripMenuItem.Size = new Size(140, 24);
             closeToolStripMenuItem.Text = "Close";
             closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(203, 6);
+            toolStripMenuItem1.Size = new Size(137, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(206, 24);
+            exitToolStripMenuItem.Size = new Size(140, 24);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -160,23 +162,37 @@
             // 
             refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             refreshToolStripMenuItem.ShortcutKeys = Keys.F5;
-            refreshToolStripMenuItem.Size = new Size(206, 24);
+            refreshToolStripMenuItem.Size = new Size(155, 24);
             refreshToolStripMenuItem.Text = "Refresh";
             refreshToolStripMenuItem.Click += refreshToolStripMenuItem_Click;
             // 
             // clearLogToolStripMenuItem
             // 
             clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
-            clearLogToolStripMenuItem.Size = new Size(206, 24);
+            clearLogToolStripMenuItem.Size = new Size(155, 24);
             clearLogToolStripMenuItem.Text = "Clear log";
             clearLogToolStripMenuItem.Click += clearLogToolStripMenuItem_Click;
             // 
             // miscToolStripMenuItem
             // 
-            miscToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { uploadLicenseToolStripMenuItem });
+            miscToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { publishAPPToolStripMenuItem, publishSymbolsToolStripMenuItem, uploadLicenseToolStripMenuItem });
             miscToolStripMenuItem.Name = "miscToolStripMenuItem";
             miscToolStripMenuItem.Size = new Size(65, 23);
             miscToolStripMenuItem.Text = "Service";
+            // 
+            // publishAPPToolStripMenuItem
+            // 
+            publishAPPToolStripMenuItem.Name = "publishAPPToolStripMenuItem";
+            publishAPPToolStripMenuItem.Size = new Size(206, 24);
+            publishAPPToolStripMenuItem.Text = "Publish APP...";
+            publishAPPToolStripMenuItem.Click += publishAPPToolStripMenuItem_Click;
+            // 
+            // publishSymbolsToolStripMenuItem
+            // 
+            publishSymbolsToolStripMenuItem.Name = "publishSymbolsToolStripMenuItem";
+            publishSymbolsToolStripMenuItem.Size = new Size(206, 24);
+            publishSymbolsToolStripMenuItem.Text = "Publish Symbols...";
+            publishSymbolsToolStripMenuItem.Click += publishSymbolsToolStripMenuItem_Click;
             // 
             // uploadLicenseToolStripMenuItem
             // 
@@ -235,67 +251,67 @@
             contextApps.ImageScalingSize = new Size(18, 18);
             contextApps.Items.AddRange(new ToolStripItem[] { publishToolStripMenuItem, syncToolStripMenuItem, dataUpgradeToolStripMenuItem, installToolStripMenuItem, uninstallToolStripMenuItem, unpublishToolStripMenuItem, cleanToolStripMenuItem, toolStripMenuItem3, upgradeToolStripMenuItem });
             contextApps.Name = "contextApps";
-            contextApps.Size = new Size(199, 227);
+            contextApps.Size = new Size(165, 202);
             // 
             // publishToolStripMenuItem
             // 
             publishToolStripMenuItem.Name = "publishToolStripMenuItem";
-            publishToolStripMenuItem.Size = new Size(198, 24);
+            publishToolStripMenuItem.Size = new Size(164, 24);
             publishToolStripMenuItem.Text = "Publish";
             publishToolStripMenuItem.Click += publishToolStripMenuItem_Click;
             // 
             // syncToolStripMenuItem
             // 
             syncToolStripMenuItem.Name = "syncToolStripMenuItem";
-            syncToolStripMenuItem.Size = new Size(198, 24);
+            syncToolStripMenuItem.Size = new Size(164, 24);
             syncToolStripMenuItem.Text = "Sync";
             syncToolStripMenuItem.Click += syncToolStripMenuItem_Click;
             // 
             // dataUpgradeToolStripMenuItem
             // 
             dataUpgradeToolStripMenuItem.Name = "dataUpgradeToolStripMenuItem";
-            dataUpgradeToolStripMenuItem.Size = new Size(198, 24);
+            dataUpgradeToolStripMenuItem.Size = new Size(164, 24);
             dataUpgradeToolStripMenuItem.Text = "Data Upgrade";
             dataUpgradeToolStripMenuItem.Click += dataUpgradeToolStripMenuItem_Click;
             // 
             // installToolStripMenuItem
             // 
             installToolStripMenuItem.Name = "installToolStripMenuItem";
-            installToolStripMenuItem.Size = new Size(198, 24);
+            installToolStripMenuItem.Size = new Size(164, 24);
             installToolStripMenuItem.Text = "Install";
             installToolStripMenuItem.Click += installToolStripMenuItem_Click;
             // 
             // uninstallToolStripMenuItem
             // 
             uninstallToolStripMenuItem.Name = "uninstallToolStripMenuItem";
-            uninstallToolStripMenuItem.Size = new Size(198, 24);
+            uninstallToolStripMenuItem.Size = new Size(164, 24);
             uninstallToolStripMenuItem.Text = "Uninstall";
             uninstallToolStripMenuItem.Click += uninstallToolStripMenuItem_Click;
             // 
             // unpublishToolStripMenuItem
             // 
             unpublishToolStripMenuItem.Name = "unpublishToolStripMenuItem";
-            unpublishToolStripMenuItem.Size = new Size(198, 24);
+            unpublishToolStripMenuItem.Size = new Size(164, 24);
             unpublishToolStripMenuItem.Text = "Unpublish";
             unpublishToolStripMenuItem.Click += unpublishToolStripMenuItem_Click;
             // 
             // cleanToolStripMenuItem
             // 
             cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
-            cleanToolStripMenuItem.Size = new Size(198, 24);
+            cleanToolStripMenuItem.Size = new Size(164, 24);
             cleanToolStripMenuItem.Text = "Clean";
             cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
             // 
             // toolStripMenuItem3
             // 
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(195, 6);
+            toolStripMenuItem3.Size = new Size(161, 6);
             // 
             // upgradeToolStripMenuItem
             // 
             upgradeToolStripMenuItem.Name = "upgradeToolStripMenuItem";
             upgradeToolStripMenuItem.ShortcutKeys = Keys.F9;
-            upgradeToolStripMenuItem.Size = new Size(198, 24);
+            upgradeToolStripMenuItem.Size = new Size(164, 24);
             upgradeToolStripMenuItem.Text = "Upgrade";
             upgradeToolStripMenuItem.Click += upgradeToolStripMenuItem_Click;
             // 
@@ -436,6 +452,8 @@
         private ToolStripMenuItem dataUpgradeToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
         private ToolStripMenuItem upgradeToolStripMenuItem;
+        private ToolStripMenuItem publishAPPToolStripMenuItem;
+        private ToolStripMenuItem publishSymbolsToolStripMenuItem;
     }
 }
 

@@ -18,6 +18,7 @@ namespace Brayns.BCT
     public partial class MainForm : Form
     {
         private ListViewColumnSorter? _lvAppsSorter;
+        private bool _profileLoaded = false;
 
         public static MainForm? Current { get; set; }
 
@@ -108,15 +109,15 @@ namespace Brayns.BCT
 
             newToolStripMenuItem.Enabled = true;
             openToolStripMenuItem.Enabled = true;
-            editToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
-            saveToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
-            saveAsToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
-            uploadLicenseToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
-            refreshToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
-            closeToolStripMenuItem.Enabled = (ProfileFileName.Length > 0);
+            editToolStripMenuItem.Enabled = _profileLoaded;
+            saveToolStripMenuItem.Enabled = _profileLoaded;
+            saveAsToolStripMenuItem.Enabled = _profileLoaded;
+            uploadLicenseToolStripMenuItem.Enabled = _profileLoaded;
+            refreshToolStripMenuItem.Enabled = _profileLoaded;
+            closeToolStripMenuItem.Enabled = _profileLoaded;
 
             tabControl.TabPages.Clear();
-            if (ProfileFileName.Length > 0)
+            if (_profileLoaded)
             {
                 tabControl.TabPages.Add(tabApps);
             }
@@ -165,6 +166,7 @@ namespace Brayns.BCT
         private void RefreshProfile()
         {
             BC = null;
+            _profileLoaded = false;
 
             if (Runspace != null)
             {
@@ -208,6 +210,7 @@ namespace Brayns.BCT
                 AddLog("done.");
             }
 
+            _profileLoaded = true;
             RefreshAppsUI();
         }
 
@@ -269,17 +272,18 @@ namespace Brayns.BCT
             var jo = JObject.Parse(sr.ReadToEnd());
             sr.Close();
             ProfileData = jo.ToObject<ProfileData>()!;
-
             ProfileFileName = fileName;
-            RefreshUI();
+
             RefreshProfile();
+            RefreshUI();
         }
 
         public void LoadProfile(ProfileData data)
         {
             ProfileData = data;
-            RefreshUI();
+
             RefreshProfile();
+            RefreshUI();
         }
 
         private void byBraynsitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -501,6 +505,7 @@ namespace Brayns.BCT
                     Runspace = null;
                 }
                 tabControl.TabPages.Clear();
+                _profileLoaded = false;
                 RefreshUI();
             }
             catch (Exception ex)
@@ -592,11 +597,20 @@ namespace Brayns.BCT
 
         private bool PublishApp(NavApp app)
         {
-            AddLog(string.Format("Publish APP '{0}' from '{1}'... ", app.Name, app.FileName), false);
-            if (ExecutePowerShell("Publish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Path \"" + app.FileName + "\" -SkipVerification"))
+            if (app.Name.Length > 0)
+                AddLog(string.Format("Publish APP '{0}' from '{1}'... ", app.Name, app.FileName), false);
+            else if (app.SymbolsOnly)
+                AddLog(string.Format("Publish symbols from '{0}'... ", app.FileName), false);
+            else
+                AddLog(string.Format("Publish APP from '{0}'... ", app.FileName), false);
+
+            string cmd = "Publish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Path \"" + app.FileName + "\" -SkipVerification";
+            if (app.SymbolsOnly)
+                cmd += " -PackageType SymbolsOnly";
+
+            if (ExecutePowerShell(cmd))
             {
                 AddLog("done.");
-
                 return true;
             }
             return false;
@@ -725,6 +739,53 @@ namespace Brayns.BCT
 
                 BC!.Load();
                 RefreshAppsUI();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void publishAPPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var ofd = new OpenFileDialog();
+                ofd.Filter = "APP File|*.app";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var a = new NavApp();
+                    a.FileName = ofd.FileName;
+                    if (PublishApp(a))
+                    {
+                        BC!.Load();
+                        RefreshAppsUI();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void publishSymbolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var ofd = new OpenFileDialog();
+                ofd.Filter = "APP File|*.app";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var a = new NavApp();
+                    a.FileName = ofd.FileName;
+                    a.SymbolsOnly = true;
+                    if (PublishApp(a))
+                    {
+                        BC!.Load();
+                        RefreshAppsUI();
+                    }
+                }
             }
             catch (Exception ex)
             {
