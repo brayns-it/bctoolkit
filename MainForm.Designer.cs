@@ -68,6 +68,7 @@
             tabApps = new TabPage();
             lvApps = new ListView();
             tbLog = new TextBox();
+            syncForceToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             contextApps.SuspendLayout();
@@ -183,21 +184,21 @@
             // publishAPPToolStripMenuItem
             // 
             publishAPPToolStripMenuItem.Name = "publishAPPToolStripMenuItem";
-            publishAPPToolStripMenuItem.Size = new Size(206, 24);
+            publishAPPToolStripMenuItem.Size = new Size(194, 24);
             publishAPPToolStripMenuItem.Text = "Publish APP...";
             publishAPPToolStripMenuItem.Click += publishAPPToolStripMenuItem_Click;
             // 
             // publishSymbolsToolStripMenuItem
             // 
             publishSymbolsToolStripMenuItem.Name = "publishSymbolsToolStripMenuItem";
-            publishSymbolsToolStripMenuItem.Size = new Size(206, 24);
+            publishSymbolsToolStripMenuItem.Size = new Size(194, 24);
             publishSymbolsToolStripMenuItem.Text = "Publish Symbols...";
             publishSymbolsToolStripMenuItem.Click += publishSymbolsToolStripMenuItem_Click;
             // 
             // uploadLicenseToolStripMenuItem
             // 
             uploadLicenseToolStripMenuItem.Name = "uploadLicenseToolStripMenuItem";
-            uploadLicenseToolStripMenuItem.Size = new Size(206, 24);
+            uploadLicenseToolStripMenuItem.Size = new Size(194, 24);
             uploadLicenseToolStripMenuItem.Text = "Upload license";
             uploadLicenseToolStripMenuItem.Click += uploadLicenseToolStripMenuItem_Click;
             // 
@@ -249,69 +250,69 @@
             // contextApps
             // 
             contextApps.ImageScalingSize = new Size(18, 18);
-            contextApps.Items.AddRange(new ToolStripItem[] { publishToolStripMenuItem, syncToolStripMenuItem, dataUpgradeToolStripMenuItem, installToolStripMenuItem, uninstallToolStripMenuItem, unpublishToolStripMenuItem, cleanToolStripMenuItem, toolStripMenuItem3, upgradeToolStripMenuItem });
+            contextApps.Items.AddRange(new ToolStripItem[] { publishToolStripMenuItem, syncToolStripMenuItem, syncForceToolStripMenuItem, dataUpgradeToolStripMenuItem, installToolStripMenuItem, uninstallToolStripMenuItem, unpublishToolStripMenuItem, cleanToolStripMenuItem, toolStripMenuItem3, upgradeToolStripMenuItem });
             contextApps.Name = "contextApps";
-            contextApps.Size = new Size(165, 202);
+            contextApps.Size = new Size(199, 251);
             // 
             // publishToolStripMenuItem
             // 
             publishToolStripMenuItem.Name = "publishToolStripMenuItem";
-            publishToolStripMenuItem.Size = new Size(164, 24);
+            publishToolStripMenuItem.Size = new Size(198, 24);
             publishToolStripMenuItem.Text = "Publish";
             publishToolStripMenuItem.Click += publishToolStripMenuItem_Click;
             // 
             // syncToolStripMenuItem
             // 
             syncToolStripMenuItem.Name = "syncToolStripMenuItem";
-            syncToolStripMenuItem.Size = new Size(164, 24);
+            syncToolStripMenuItem.Size = new Size(198, 24);
             syncToolStripMenuItem.Text = "Sync";
             syncToolStripMenuItem.Click += syncToolStripMenuItem_Click;
             // 
             // dataUpgradeToolStripMenuItem
             // 
             dataUpgradeToolStripMenuItem.Name = "dataUpgradeToolStripMenuItem";
-            dataUpgradeToolStripMenuItem.Size = new Size(164, 24);
+            dataUpgradeToolStripMenuItem.Size = new Size(198, 24);
             dataUpgradeToolStripMenuItem.Text = "Data Upgrade";
             dataUpgradeToolStripMenuItem.Click += dataUpgradeToolStripMenuItem_Click;
             // 
             // installToolStripMenuItem
             // 
             installToolStripMenuItem.Name = "installToolStripMenuItem";
-            installToolStripMenuItem.Size = new Size(164, 24);
+            installToolStripMenuItem.Size = new Size(198, 24);
             installToolStripMenuItem.Text = "Install";
             installToolStripMenuItem.Click += installToolStripMenuItem_Click;
             // 
             // uninstallToolStripMenuItem
             // 
             uninstallToolStripMenuItem.Name = "uninstallToolStripMenuItem";
-            uninstallToolStripMenuItem.Size = new Size(164, 24);
+            uninstallToolStripMenuItem.Size = new Size(198, 24);
             uninstallToolStripMenuItem.Text = "Uninstall";
             uninstallToolStripMenuItem.Click += uninstallToolStripMenuItem_Click;
             // 
             // unpublishToolStripMenuItem
             // 
             unpublishToolStripMenuItem.Name = "unpublishToolStripMenuItem";
-            unpublishToolStripMenuItem.Size = new Size(164, 24);
+            unpublishToolStripMenuItem.Size = new Size(198, 24);
             unpublishToolStripMenuItem.Text = "Unpublish";
             unpublishToolStripMenuItem.Click += unpublishToolStripMenuItem_Click;
             // 
             // cleanToolStripMenuItem
             // 
             cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
-            cleanToolStripMenuItem.Size = new Size(164, 24);
+            cleanToolStripMenuItem.Size = new Size(198, 24);
             cleanToolStripMenuItem.Text = "Clean";
             cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
             // 
             // toolStripMenuItem3
             // 
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(161, 6);
+            toolStripMenuItem3.Size = new Size(195, 6);
             // 
             // upgradeToolStripMenuItem
             // 
             upgradeToolStripMenuItem.Name = "upgradeToolStripMenuItem";
             upgradeToolStripMenuItem.ShortcutKeys = Keys.F9;
-            upgradeToolStripMenuItem.Size = new Size(164, 24);
+            upgradeToolStripMenuItem.Size = new Size(198, 24);
             upgradeToolStripMenuItem.Text = "Upgrade";
             upgradeToolStripMenuItem.Click += upgradeToolStripMenuItem_Click;
             // 
@@ -382,6 +383,13 @@
             tbLog.ScrollBars = ScrollBars.Vertical;
             tbLog.Size = new Size(1012, 261);
             tbLog.TabIndex = 1;
+            // 
+            // syncForceToolStripMenuItem
+            // 
+            syncForceToolStripMenuItem.Name = "syncForceToolStripMenuItem";
+            syncForceToolStripMenuItem.Size = new Size(198, 24);
+            syncForceToolStripMenuItem.Text = "Sync Force";
+            syncForceToolStripMenuItem.Click += syncForceToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -454,6 +462,7 @@
         private ToolStripMenuItem upgradeToolStripMenuItem;
         private ToolStripMenuItem publishAPPToolStripMenuItem;
         private ToolStripMenuItem publishSymbolsToolStripMenuItem;
+        private ToolStripMenuItem syncForceToolStripMenuItem;
     }
 }
 

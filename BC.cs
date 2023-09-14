@@ -55,11 +55,11 @@ namespace Brayns.BCT
             return false;
         }
 
-        public bool OlderAppExists(NavApp app)
+        public bool NewerAppExists(NavApp app)
         {
             var appList = GetAppsById(app.ID);
             foreach (NavApp a in appList)
-                if (a.Version >= app.Version)
+                if (a.Version > app.Version)
                     return true;
             return false;
         }
@@ -170,8 +170,9 @@ namespace Brayns.BCT
                             a.ID = Guid.Parse(jo["id"]!.ToString());
                             a.FileName = fi.FullName;
                             a.Status = NavAppStatus.Available;
-                            if (!OlderAppExists(a))
-                                Apps.Add(a);
+                            if (!AppExists(a))
+                                if (!NewerAppExists(a))
+                                 Apps.Add(a);
                         }
                     }
                 }

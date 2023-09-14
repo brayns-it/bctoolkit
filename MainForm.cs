@@ -649,7 +649,7 @@ namespace Brayns.BCT
             AddLog(string.Format("Sync APP '{0}' force '{1}'... ", app.Name, force), false);
 
             string cmd = "Sync-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Name \"" + app.Name + "\" -Version " + app.Version;
-            if (force) cmd += " -Mode ForceSync\"";
+            if (force) cmd += " -Mode ForceSync";
 
             if (ExecutePowerShell(cmd))
             {
@@ -713,14 +713,16 @@ namespace Brayns.BCT
             {
                 var app = GetSelectedApp();
                 if (app == null) return;
-                if (app.Status != NavAppStatus.Available) return;
+                if (app.Status != NavAppStatus.Available)
+                    if (BC!.NewerAppExists(app))
+                        return;
 
                 if (MessageBox.Show(string.Format("Upgrade APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
                 foreach (NavApp a in BC!.Apps)
                 {
-                    if ((a.ID == app.ID) && (a.Status != NavAppStatus.Available))
+                    if ((a.ID == app.ID) && (a.Status != NavAppStatus.Available) && (a.Version != app.Version))
                     {
                         if (a.Status == NavAppStatus.Installed)
                         {
@@ -732,7 +734,9 @@ namespace Brayns.BCT
                     }
                 }
 
-                PublishApp(app);
+                if (app.Status == NavAppStatus.Available)
+                    PublishApp(app);
+
                 SyncApp(app, false);
                 DataUpgradeApp(app);
                 InstallApp(app);
@@ -786,6 +790,24 @@ namespace Brayns.BCT
                         RefreshAppsUI();
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void syncForceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var app = GetSelectedApp();
+                if (app == null) return;
+
+                if (MessageBox.Show(string.Format("Force sync APP '{0}'?", app.Name), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
+                SyncApp(app, true);
             }
             catch (Exception ex)
             {
