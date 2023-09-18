@@ -39,6 +39,9 @@ namespace Brayns.BCT
             tbDbPassword.Text = Utility.DecryptString(data.DatabasePassword);
             ckDbIntSecurity.Checked = data.DatabaseIntegratedSecurity;
             tbDevelPath.Text = string.Join("\r\n", data.DevelopmentPaths);
+            tbApiBase.Text = data.ApiBaseUrl;
+            tbApiLogin.Text = data.ApiLogin;
+            tbApiPassword.Text = data.ApiPassword;
         }
 
         private void btLoad_Click(object sender, EventArgs e)
@@ -51,7 +54,10 @@ namespace Brayns.BCT
             data.DatabaseLogin = tbDbLogin.Text.Trim();
             data.DatabasePassword = Utility.EncryptString(tbDbPassword.Text.Trim());
             data.DatabaseIntegratedSecurity = ckDbIntSecurity.Checked;
-            
+            data.ApiBaseUrl = tbApiBase.Text.Trim();
+            data.ApiLogin = tbApiLogin.Text.Trim();
+            data.ApiPassword = tbApiPassword.Text.Trim();
+
             foreach (string line in tbDevelPath.Text.Split('\n'))
             {
                 string l = line.Replace("\r", "").Trim();

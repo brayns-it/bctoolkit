@@ -16,6 +16,13 @@ namespace Brayns.BCT
         public string DatabasePassword { get; set; } = "";
         public bool DatabaseIntegratedSecurity { get; set; } = false;
         public List<string> DevelopmentPaths { get; set; } = new(); 
+        public string ApiBaseUrl { get; set; } = "";
+        public string ApiLogin { get; set; } = "";
+        public string ApiPassword { get; set; } = "";
+        public string LastApiSubsystem { get; set; } = "";
+        public string LastApiProcedure { get; set; } = "";
+        public string LastApiBody { get; set; } = "";
+        public string LastApiCompanyID { get; set; } = "";
     }
 
     public class Settings

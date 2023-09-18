@@ -49,6 +49,12 @@
             label1 = new Label();
             tbDevelPath = new TextBox();
             btLoad = new Button();
+            label8 = new Label();
+            tbApiPassword = new TextBox();
+            label9 = new Label();
+            tbApiLogin = new TextBox();
+            label10 = new Label();
+            tbApiBase = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -236,6 +242,12 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label8);
+            tabPage3.Controls.Add(tbApiPassword);
+            tabPage3.Controls.Add(label9);
+            tabPage3.Controls.Add(tbApiLogin);
+            tabPage3.Controls.Add(label10);
+            tabPage3.Controls.Add(tbApiBase);
             tabPage3.Controls.Add(label1);
             tabPage3.Controls.Add(tbDevelPath);
             tabPage3.Location = new Point(4, 28);
@@ -279,6 +291,61 @@
             btLoad.Text = "Load";
             btLoad.UseVisualStyleBackColor = true;
             btLoad.Click += btLoad_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(22, 264);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(95, 19);
+            label8.TabIndex = 21;
+            label8.Text = "API Password:";
+            // 
+            // tbApiPassword
+            // 
+            tbApiPassword.Location = new Point(170, 260);
+            tbApiPassword.Margin = new Padding(4);
+            tbApiPassword.Name = "tbApiPassword";
+            tbApiPassword.Size = new Size(390, 26);
+            tbApiPassword.TabIndex = 20;
+            tbApiPassword.UseSystemPasswordChar = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(22, 230);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(71, 19);
+            label9.TabIndex = 19;
+            label9.Text = "API Login:";
+            // 
+            // tbApiLogin
+            // 
+            tbApiLogin.Location = new Point(170, 226);
+            tbApiLogin.Margin = new Padding(4);
+            tbApiLogin.Name = "tbApiLogin";
+            tbApiLogin.Size = new Size(390, 26);
+            tbApiLogin.TabIndex = 18;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(22, 196);
+            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(94, 19);
+            label10.TabIndex = 17;
+            label10.Text = "API base URL:";
+            // 
+            // tbApiBase
+            // 
+            tbApiBase.Location = new Point(170, 192);
+            tbApiBase.Margin = new Padding(4);
+            tbApiBase.Name = "tbApiBase";
+            tbApiBase.Size = new Size(390, 26);
+            tbApiBase.TabIndex = 16;
             // 
             // Profile
             // 
@@ -324,5 +391,11 @@
         private TabPage tabPage3;
         private Label label1;
         private TextBox tbDevelPath;
+        private Label label8;
+        private TextBox tbApiPassword;
+        private Label label9;
+        private TextBox tbApiLogin;
+        private Label label10;
+        private TextBox tbApiBase;
     }
 }
