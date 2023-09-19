@@ -13,6 +13,8 @@ namespace Brayns.BCT
 {
     public partial class Profile : Form
     {
+        ProfileData _data = new();
+
         public Profile()
         {
             InitializeComponent();
@@ -42,32 +44,33 @@ namespace Brayns.BCT
             tbApiBase.Text = data.ApiBaseUrl;
             tbApiLogin.Text = data.ApiLogin;
             tbApiPassword.Text = data.ApiPassword;
+
+            _data = data;
         }
 
         private void btLoad_Click(object sender, EventArgs e)
         {
-            var data = new ProfileData();
-            data.PowerShellPath = tbPSPath.Text.Trim();
-            data.InstanceName = tbInstName.Text.Trim();
-            data.DatabaseServer = tbDbServer.Text.Trim();
-            data.DatabaseName = tbDbName.Text.Trim();
-            data.DatabaseLogin = tbDbLogin.Text.Trim();
-            data.DatabasePassword = Utility.EncryptString(tbDbPassword.Text.Trim());
-            data.DatabaseIntegratedSecurity = ckDbIntSecurity.Checked;
-            data.ApiBaseUrl = tbApiBase.Text.Trim();
-            data.ApiLogin = tbApiLogin.Text.Trim();
-            data.ApiPassword = tbApiPassword.Text.Trim();
+            _data.PowerShellPath = tbPSPath.Text.Trim();
+            _data.InstanceName = tbInstName.Text.Trim();
+            _data.DatabaseServer = tbDbServer.Text.Trim();
+            _data.DatabaseName = tbDbName.Text.Trim();
+            _data.DatabaseLogin = tbDbLogin.Text.Trim();
+            _data.DatabasePassword = Utility.EncryptString(tbDbPassword.Text.Trim());
+            _data.DatabaseIntegratedSecurity = ckDbIntSecurity.Checked;
+            _data.ApiBaseUrl = tbApiBase.Text.Trim();
+            _data.ApiLogin = tbApiLogin.Text.Trim();
+            _data.ApiPassword = tbApiPassword.Text.Trim();
 
             foreach (string line in tbDevelPath.Text.Split('\n'))
             {
                 string l = line.Replace("\r", "").Trim();
                 if (l.Length > 0)
-                    data.DevelopmentPaths.Add(l);
+                    _data.DevelopmentPaths.Add(l);
             }
 
             try
             {
-                MainForm.Current!.LoadProfile(data);
+                MainForm.Current!.LoadProfile(_data);
                 Close();
             }
             catch (Exception ex)

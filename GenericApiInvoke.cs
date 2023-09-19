@@ -25,7 +25,7 @@ namespace Brayns.BCT
             {
                 var url = MainForm.Current!.ProfileData.ApiBaseUrl;
                 if (!url.EndsWith("/")) url += "/";
-                url += "api/brayns/generic/v2.0/companies(" + tbCompID.Text + ")/api";
+                url += "api/brayns/api/v2.0/companies(" + tbCompID.Text + ")/generic";
 
                 var handler = new HttpClientHandler();
                 handler.Credentials = new NetworkCredential(MainForm.Current!.ProfileData.ApiLogin, MainForm.Current!.ProfileData.ApiPassword);

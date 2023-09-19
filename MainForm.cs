@@ -608,6 +608,8 @@ namespace Brayns.BCT
             string cmd = "Publish-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Path \"" + app.FileName + "\" -SkipVerification";
             if (app.SymbolsOnly)
                 cmd += " -PackageType SymbolsOnly";
+            else
+                cmd += " -Scope Tenant -Tenant default";
 
             if (ExecutePowerShell(cmd))
             {
