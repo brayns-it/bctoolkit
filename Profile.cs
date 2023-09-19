@@ -41,9 +41,6 @@ namespace Brayns.BCT
             tbDbPassword.Text = Utility.DecryptString(data.DatabasePassword);
             ckDbIntSecurity.Checked = data.DatabaseIntegratedSecurity;
             tbDevelPath.Text = string.Join("\r\n", data.DevelopmentPaths);
-            tbApiBase.Text = data.ApiBaseUrl;
-            tbApiLogin.Text = data.ApiLogin;
-            tbApiPassword.Text = data.ApiPassword;
 
             _data = data;
         }
@@ -57,9 +54,7 @@ namespace Brayns.BCT
             _data.DatabaseLogin = tbDbLogin.Text.Trim();
             _data.DatabasePassword = Utility.EncryptString(tbDbPassword.Text.Trim());
             _data.DatabaseIntegratedSecurity = ckDbIntSecurity.Checked;
-            _data.ApiBaseUrl = tbApiBase.Text.Trim();
-            _data.ApiLogin = tbApiLogin.Text.Trim();
-            _data.ApiPassword = tbApiPassword.Text.Trim();
+
 
             foreach (string line in tbDevelPath.Text.Split('\n'))
             {

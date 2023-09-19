@@ -115,7 +115,6 @@ namespace Brayns.BCT
             uploadLicenseToolStripMenuItem.Enabled = _profileLoaded;
             refreshToolStripMenuItem.Enabled = _profileLoaded;
             closeToolStripMenuItem.Enabled = _profileLoaded;
-            genericAPIInvokeToolStripMenuItem.Enabled = _profileLoaded;
 
             tabControl.TabPages.Clear();
             if (_profileLoaded)
@@ -816,12 +815,6 @@ namespace Brayns.BCT
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void genericAPIInvokeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var genapi = new GenericApiInvoke();
-            genapi.Show();
         }
     }
 }
