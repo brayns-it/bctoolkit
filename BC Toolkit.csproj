@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <RootNamespace>Brayns.BCT</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -19,14 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-    <PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.3.5" />
-    <PackageReference Include="Microsoft.PowerShell.Commands.Management" Version="7.3.5" />
-    <PackageReference Include="Microsoft.PowerShell.Commands.Utility" Version="7.3.5" />
-    <PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="7.3.5" />
-    <PackageReference Include="Microsoft.WSMan.Management" Version="7.3.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.4.2" />
+    <PackageReference Include="Microsoft.PowerShell.Commands.Management" Version="7.4.2" />
+    <PackageReference Include="Microsoft.PowerShell.Commands.Utility" Version="7.4.2" />
+    <PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="7.4.2" />
+    <PackageReference Include="Microsoft.WSMan.Management" Version="7.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Management.Automation" Version="7.3.5" />
+    <PackageReference Include="System.Management.Automation" Version="7.4.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -184,6 +184,7 @@ namespace Brayns.BCT
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("Set-ExecutionPolicy Unrestricted");
 
+                // V23
                 var fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.Dynamics.Nav.Management.psd1");
                 if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
 
@@ -192,6 +193,19 @@ namespace Brayns.BCT
 
                 fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.Dynamics.Nav.Apps.Management.psd1");
                 if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
+
+                // V24
+                fi = new FileInfo(ProfileData.PowerShellPath + "NavAdminTool.ps1");
+                if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
+
+                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Apps.Management.psd1");
+                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
+
+                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Apps.Tools.psd1");
+                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
+
+                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Management.psd1");
+                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
 
                 var psi = new PowerShellProcessInstance(new Version(5, 1), null, ScriptBlock.Create(sb.ToString()), false);
                 Runspace = RunspaceFactory.CreateOutOfProcessRunspace(null, psi);
