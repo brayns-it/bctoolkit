@@ -198,15 +198,6 @@ namespace Brayns.BCT
                 fi = new FileInfo(ProfileData.PowerShellPath + "NavAdminTool.ps1");
                 if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
 
-                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Apps.Management.psd1");
-                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
-
-                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Apps.Tools.psd1");
-                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
-
-                fi = new FileInfo(ProfileData.PowerShellPath + "Microsoft.BusinessCentral.Management.psd1");
-                //if (fi.Exists) sb.AppendLine("Import-Module '" + fi.FullName + "'");
-
                 var psi = new PowerShellProcessInstance(new Version(5, 1), null, ScriptBlock.Create(sb.ToString()), false);
                 Runspace = RunspaceFactory.CreateOutOfProcessRunspace(null, psi);
                 Runspace.Open();
@@ -400,7 +391,7 @@ namespace Brayns.BCT
             if (lvApps.SelectedItems.Count == 0)
                 return null;
 
-            return (NavApp)lvApps.SelectedItems[0].Tag;
+            return (NavApp)lvApps.SelectedItems[0].Tag!;
         }
 
         private bool UnpublishApp(NavApp app)
@@ -439,7 +430,7 @@ namespace Brayns.BCT
         private bool CleanApp(NavApp app)
         {
             AddLog(string.Format("Clean APP '{0}'... ", app.Name), false);
-            if (ExecutePowerShell("Sync-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Mode Clean -Name \"" + app.Name + "\" -Version " + app.Version))
+            if (ExecutePowerShell("Sync-NAVApp -ServerInstance " + ProfileData.InstanceName + " -Mode Clean -Name \"" + app.Name + "\" -Publisher \"" + app.Publisher + "\" -Version " + app.Version))
             {
                 AddLog("done.");
                 return true;
